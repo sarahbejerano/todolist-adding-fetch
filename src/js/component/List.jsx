@@ -31,15 +31,14 @@ const TodoList = () => {
 
 			{inputList.map((element, index) => {
 				return (
-					<>
+					<div key={element + index}>
 						<input
 							type="text"
-							key={element + index}
 							value={element}
 							readOnly
 						/>
 						<button onClick={() => deleteItem(index)}>x</button>
-					</>
+					</div>
 				);
 			})}
 		</div>
