@@ -15,14 +15,14 @@ const TodoList = () => {
 
 	function deleteItem(index) {
 		setInputList(function(currentList) {
-			return currentList.filter(function( el , elIndex) {
+			return currentList.filter(function(el, elIndex) {
 				return index !== elIndex;
 			});
 		});
 	}
 
 	return (
-		<div className="todolist-container">
+		<div>
 			<h1>TODO List</h1>
 			<input
 				type="text"
@@ -37,7 +37,11 @@ const TodoList = () => {
 				return (
 					<div key={element + index}>
 						<input type="text" value={element} />
-						<button onClick={() => deleteItem(index)}>x</button>
+						<button
+							className="btn btn-outline-danger btn-sm"
+							onClick={() => deleteItem(index)}>
+							x
+						</button>
 					</div>
 				);
 			})}
