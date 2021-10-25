@@ -12,13 +12,17 @@ const TodoList = () => {
 			setInputValue("");
 		}
 	}
+
 	function deleteItem(index) {
-		setInputList(list => list.splice(index, 1));
-		console.log(index);
+		setInputList(function(currentList) {
+			return currentList.filter(function( el , elIndex) {
+				return index !== elIndex;
+			});
+		});
 	}
 
 	return (
-		<div>
+		<div className="todolist-container">
 			<h1>TODO List</h1>
 			<input
 				type="text"
@@ -32,11 +36,7 @@ const TodoList = () => {
 			{inputList.map((element, index) => {
 				return (
 					<div key={element + index}>
-						<input
-							type="text"
-							value={element}
-							readOnly
-						/>
+						<input type="text" value={element} />
 						<button onClick={() => deleteItem(index)}>x</button>
 					</div>
 				);
