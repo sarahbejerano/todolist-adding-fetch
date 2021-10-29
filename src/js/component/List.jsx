@@ -21,6 +21,18 @@ const TodoList = () => {
 		});
 	}
 
+	// function deletelist() {
+	// 	setInputList(function(currentList) {
+	// 		return currentList.filter(function(el, elIndex) {
+	// 			return index !== elIndex;
+	// 		});
+	// 	});
+	// }
+
+	// function deletelist() {
+	// 	setInputList([]);
+	// }
+
 	return (
 		<div>
 			<h1>TODO List</h1>
@@ -32,7 +44,6 @@ const TodoList = () => {
 				onKeyPress={addItem}
 				placeholder="What to do next?"
 			/>
-
 			{inputList.map((element, index) => {
 				return (
 					<div key={element + index}>
@@ -45,6 +56,11 @@ const TodoList = () => {
 					</div>
 				);
 			})}
+			<button
+				className="btn btn-outline-black btn-sm"
+				onClick={setInputList([])}>
+				delete all
+			</button>
 		</div>
 	);
 };
