@@ -1,57 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import "bootstrap";
 
 const List = () => {
 	const [inputValue, setInputValue] = useState("");
-	const [inputList, setInputList] = useState([""]);
+	const [inputList, setInputList] = useState([]);
 	const delItem = index => {
-		setInputList(inputList.filter((result, i) => index != i));
-		useEffect(() => {
-			fetch(
-				"https://assets.breatheco.de/apis/fake/todos/user/alesanchezr",
-				{
-					method: "PUT",
-					body: JSON.stringify(setInputValue),
-					headers: {
-						"Content-Type": "application/json"
-					}
-				}
-			)
-				.then(resp => {
-					console.log(resp.ok);
-					console.log(resp.status);
-					console.log(resp.text());
-					return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
-				})
-				.then(data => {
-					//here is were your code should start after the fetch finishes
-					console.log(data); //this will print on the console the exact object received from the server
-				})
-				.catch(error => {
-					//error handling
-					console.log(error);
-				});
-		}, []);
+		const tempList = inputList.filter((result, i) => index != i);
+		setInputList(tempList);
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/sarahb", {
+			method: "PUT",
+			body: JSON.stringify(tempList),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				console.log(resp.ok);
+				console.log(resp.status);
+				console.log(resp.text());
+				return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+			})
+			.then(data => {
+				//here is were your code should start after the fetch finishes
+				console.log(data); //this will print on the console the exact object received from the server
+			})
+			.catch(error => {
+				//error handling
+				console.log(error);
+			});
 	};
 	function addItem(e) {
 		if (e.keyCode == 13) {
 			setInputValue(inputValue);
-			const list = inputList.concat(inputValue);
+			const list = inputList.concat({ label: inputValue, done: false });
 			setInputList(list);
 			setInputValue("");
-			fetch(
-				"https://assets.breatheco.de/apis/fake/todos/user/pandapandapanda",
-				{
-					method: "PUT",
-					body: JSON.stringify(list),
-					headers: {
-						"Content-Type": "application/json"
-					}
+			fetch("https://assets.breatheco.de/apis/fake/todos/user/sarahb", {
+				method: "PUT",
+				body: JSON.stringify(list),
+				headers: {
+					"Content-Type": "application/json"
 				}
-			).then(response => {
+			}).then(response => {
 				if (response.ok) {
 					fetch(
-						"https://assets.breatheco.de/apis/fake/todos/user/pandapandapanda"
+						"https://assets.breatheco.de/apis/fake/todos/user/sarahb"
 					)
 						.then(response => {
 							if (!response.ok) {
@@ -79,7 +72,7 @@ const List = () => {
 				{inputList.map((result, index) => (
 					<>
 						<li key={index}>
-							{result}
+							{result.label}
 							<button onClick={() => delItem(index)}>
 								<i
 									className="fa fa-times"
